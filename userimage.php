@@ -1,0 +1,53 @@
+<?php
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+        header("Access-Control-Allow-Origin:*");
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Max-Age: 86400');    // cache for 1 day
+    }
+	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+ 
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
+ 
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+            header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+ 
+        exit(0);
+    }
+ 	
+	$postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+
+	include("config.php");
+	
+		$user_image=$request->user_image;
+		$user_id = $request->user_id;
+	    $todaysdate = date('Y-m-d H:i:00');
+	    $query="update users set user_image='$user_image' where id=$user_id";
+	    $result = mysqli_query($conn,$query);
+		if($result){
+		  $outp=1;
+		  
+		    $chkemail="select * from users where id='$user_id'";
+    	    $chkresmail = mysqli_query($conn,$chkemail);
+    	    $row = mysqli_fetch_array($chkresmail);
+    	    $country = $row['country'];
+		  
+		    $message = "Your Profile Image updated Successfully";
+		    
+		    $ins_inbox= "INSERT INTO `inbox` (`user_id`, `country_id`, `title`, `notification`, `type`, `created`) VALUES ('$user_id', '$country', 'Profile Image Updated Successfully.', '$message', '1', '$todaysdate')";
+    		$result_inbox = mysqli_query($conn,$ins_inbox);
+    		
+    		$ins_unotify= "INSERT INTO `user_notification` (`user_id`, `country_id`, `title`, `notification`, `type`, `created`) VALUES ('$user_id', '$country', 'Profile Image Updated Successfully.', '$message', '1', '$todaysdate')";
+    		$result_unotify = mysqli_query($conn,$ins_unotify);
+		}
+		else{
+			$outp=$query;
+		}
+		$outp = json_encode($outp);
+		
+		echo($outp);
+	
+	$conn->close();
+	
+?> 
