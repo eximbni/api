@@ -24,7 +24,6 @@ $ipInfo = json_decode($ipInfo);
 $timezone = $ipInfo->timezone;
 date_default_timezone_set($timezone);
 include ("config.php");
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -34,12 +33,6 @@ require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 
 $lead_type = $request->lead_type;
-
-foreach ($lead_type as $val)
-{
-    $lead_type = $val;
-
-}
 
 if ($lead_type == "Buy")
 {
@@ -51,13 +44,14 @@ else
 }
 
 $otp = mt_rand(1111, 9999);
+$impexpotp = mt_rand(1111, 9999);
 $category_id = $request->category_id;
 $chapter_id = $request->chapter_id;
 $hsn_id = $request->hsncode_id;
-$product_id = ""; //$request->product_id;
+$product_id = "0"; //$request->product_id;
 $uom_id = $request->uom_id;
 $quantity = $request->quantity;
-//$continent_id = $request->continent;
+$continent_id = $request->continent;
 $user_country = $request->user_country;
 
 $posted_by = $request->user_id;
@@ -65,15 +59,15 @@ $description = $request->description;
 $expiry_date = $request->last_date;
 $mobile = $request->mobile; //'8008001226';
 $posted_date = date("Y-m-d H:i:s");
-$document1 = ''; //$request->document1;
-$document2 = ''; //$request->document2;
-$document3 = ''; //$request->document3;
-$document4 = ''; //$request->document4;
-$lport_id = $request->lport_id;
-$dport_id = $request->dport_id;
-$lport_type = $request->lport_type;
+$document1 = $request->document1;
+$document2 = $request->document2;
+$document3 = $request->document3;
+$document4 = $request->document4;
 $price_inusd = $request->price_inusd;
 $price_option = $request->price_option;
+$lport_type = $request->lport_type;
+$lport_id = $request->lport_id;
+$dport_id = $request->dport_id;
 $currency = $request->currency;
 $special_instruc = $request->special_instruc;
 $index_per = $request->index_discount;
@@ -82,96 +76,7 @@ $business_address = $request->business_address;
 $remark = $request->remark;
 $available_time = $request->available_time;
 $available_time = $available_time . ':00';
-
-if (!$category_id)
-{
-
-    if ($chapter_id > 0 && $chapter_id < 6)
-    {
-        $category_id = 1;
-    }
-    if ($chapter_id > 6 && $chapter_id < 15)
-    {
-        $category_id = 2;
-    }
-    if ($chapter_id > 14 && $chapter_id < 16)
-    {
-        $category_id = 3;
-    }
-    if ($chapter_id > 15 && $chapter_id < 25)
-    {
-        $category_id = 4;
-    }
-    if ($chapter_id > 24 && $chapter_id < 28)
-    {
-        $category_id = 5;
-    }
-    if ($chapter_id > 27 && $chapter_id < 38)
-    {
-        $category_id = 6;
-    }
-    if ($chapter_id > 37 && $chapter_id < 40)
-    {
-        $category_id = 7;
-    }
-    if ($chapter_id > 39 && $chapter_id < 43)
-    {
-        $category_id = 8;
-    }
-    if ($chapter_id > 42 && $chapter_id < 46)
-    {
-        $category_id = 9;
-    }
-    if ($chapter_id > 45 && $chapter_id < 49)
-    {
-        $category_id = 10;
-    }
-    if ($chapter_id > 48 && $chapter_id < 63)
-    {
-        $category_id = 11;
-    }
-    if ($chapter_id > 62 && $chapter_id < 67)
-    {
-        $category_id = 12;
-    }
-    if ($chapter_id > 66 && $chapter_id < 70)
-    {
-        $category_id = 13;
-    }
-    if ($chapter_id > 69 && $chapter_id < 71)
-    {
-        $category_id = 14;
-    }
-    if ($chapter_id > 70 && $chapter_id < 84)
-    {
-        $category_id = 15;
-    }
-    if ($chapter_id > 83 && $chapter_id < 86)
-    {
-        $category_id = 16;
-    }
-    if ($chapter_id > 85 && $chapter_id < 90)
-    {
-        $category_id = 17;
-    }
-    if ($chapter_id > 89 && $chapter_id < 93)
-    {
-        $category_id = 18;
-    }
-    if ($chapter_id > 92 && $chapter_id < 94)
-    {
-        $category_id = 19;
-    }
-    if ($chapter_id > 93 && $chapter_id < 97)
-    {
-        $category_id = 20;
-    }
-    if ($chapter_id > 96 && $chapter_id < 100)
-    {
-        $category_id = 21;
-    }
-
-}
+$impexpmobile = $request->impexpmobile;
 
 $getrefid = "select * from leads where lead_type='$lead_type' and country_id='$user_country' and chapter_id='$chapter_id' order by id desc limit 1";
 $resref = mysqli_query($conn, $getrefid);
@@ -200,8 +105,9 @@ if ($rescountry_code)
     }
 }
 
-$query = "INSERT INTO leads (lead_type,posted_by,hsn_id,chapter_id,categories_id,product_id,uom_id, country_id, quantity,description,posted_date,expiry_date,sno,loading_port,destination_port,port_type,price_inusd,price_option,currency,special_instruc,inspection_auth,remark) 
-    values('$lead_type','$posted_by','$hsn_id','$chapter_id','$category_id','$product_id','$uom_id','$user_country','$quantity','$description','$posted_date','$expiry_date','$nsno','$lport_id','$dport_id','$lport_type','$price_inusd','$price_option','$currency','$special_instruc','$inspection_auth','$remark')";
+$priceoption = $price_option;
+
+$query = "INSERT INTO leads (lead_type,posted_by,hsn_id,chapter_id,categories_id,product_id,uom_id, country_id, quantity,description,posted_date,expiry_date,sno,loading_port,destination_port,port_type,price_inusd,price_option,currency,special_instruc,inspection_auth,remark) values('$lead_type','$posted_by','$hsn_id','$chapter_id','$category_id','$product_id','$uom_id','$user_country','$quantity','$description','$posted_date','$expiry_date','$nsno','$lport_id','$dport_id','$lport_type','$price_inusd','$price_option','$currency','$special_instruc','$inspection_auth','$remark')";
 //echo $query;
 $result = mysqli_query($conn, $query);
 if ($result)
@@ -248,6 +154,8 @@ if ($result)
 
     $message = "You Posted Lead with Referance ID: " . $leadref_id . " and description: " . $description . " is under admin verification. once been verified you requirement will be visble to public. A confirmation mail will be sent to you with in 72 hours.";
     $msg = "Your EXIMBNI verification OTP code is " . $otp . ". Please DO NOT share this OTP with anyone.";
+	
+	$impexpmsg = "Your EXIMBNI verification OTP code is " . $impexpotp . ". Please DO NOT share this OTP with anyone.";
 
     $ins_inbox = "INSERT INTO `inbox` (`user_id`, `country_id`, `title`, `notification`, `type`, `created`) VALUES ('$posted_by', '$user_country', 'Lead Posted Successfully(Email).', '$message', '1', '$posted_date')";
     $result_inbox = mysqli_query($conn, $ins_inbox);
@@ -260,23 +168,56 @@ if ($result)
     $india_sql = mysqli_query($conn, "SELECT country_id FROM `countries` WHERE `name` = 'india' ORDER BY `name` ASC");
     $india_res = mysqli_fetch_array($india_sql);
     $india_id = $india_res['country_id'];
-    $msg = urlencode($msg);
-
-    if ($user_country == $india_id)
+    //$msg = urlencode($msg);
+	if ($impexpmobile)
     {
-        $otpurl = "http://prioritysms.tulsitainfotech.com/api/mt/SendSMS?user=eximbin&password=eximbin&senderid=EXIMBN&channel=Trans&DCS=0&flashsms=0&number=" . $mob . "&text=" . $msg . "&route=15";
-        $res = file_get_contents($otpurl);
-    }
 
+        if ($user_country == 101)
+        {
+            $otpurl1 = "http://sms.datagenit.com/API/sms-api.php?auth=D!~3133g8mKCYNGU7&msisdn=" . $impexpmobile . "&senderid=EXIMBNI&message=" . $impexpmsg;
+            //$outp = 3;
+           // $res = file_get_contents($otpurl1);
+            $otpurl = "http://sms.datagenit.com/API/sms-api.php?auth=D!~3133g8mKCYNGU7&msisdn=" . $mob . "&senderid=EXIMBNI&message=" . $msg;
+           // $res = file_get_contents($otpurl);
+        }
+
+        else
+        {
+
+            $otpurl1 = "http://sms.datagenit.com/API/sms-api.php?auth=D!~3133g8mKCYNGU7&msisdn=" . $impexpmobile . "&senderid=EXIMBNI&message=" . $impexpmsg. "&countrycode=" . $user_country;
+            //$outp = 3;
+            $res = file_get_contents($otpurl1);
+            //$otpurl = "http://sms.datagenit.com/API/sms-api.php?auth=D!~3133g8mKCYNGU7&msisdn=" . $mob . "&senderid=EXIMBNI&message=" . $msg . "&countrycode=" . $user_country;
+          //  $res = file_get_contents($otpurl);
+        }
+
+        $otpins1 = "insert into otp (mobile, otp) values('$impexpmobile','$impexpotp')";
+        $resotp1 = mysqli_query($conn, $otpins1);
+
+        $otpins = "insert into otp (mobile, otp) values('$mobile','$otp')";
+        $resotp = mysqli_query($conn, $otpins);
+
+    }
     else
     {
-        $otpurl = "https://global.datagenit.com/API/sms-api.php?auth=D!~3133g8mKCYNGU7&msisdn=" . $mob . "&senderid=EXIMBNI&message=" . $msg . "&countrycode=" . $user_country;
-        $res = file_get_contents($otpurl);
+
+        if ($user_country == $india_id)
+        {
+            $otpurl = "http://sms.datagenit.in/API/sms-api.php?auth=D!~3727SzpGFICCeC&msisdn=" . $mob . "&senderid=SMSOTP&message=" . $msg;
+          //  $res = file_get_contents($otpurl);
+        }
+
+        else
+        {
+            $otpurl = "http://sms.datagenit.com/API/sms-api.php?auth=D!~3133g8mKCYNGU7&msisdn=" . $mob . "&senderid=EXIMBNI&message=" . $msg . "&countrycode=" . $user_country;
+          //  $res = file_get_contents($otpurl);
+        }
+
+        $otpins = "insert into otp (mobile, otp) values('$mobile','$otp')";
+        $resotp = mysqli_query($conn, $otpins);
+
     }
-
-    $otpins = "insert into otp (mobile, otp) values('$mobile','$otp')";
-    $resotp = mysqli_query($conn, $otpins);
-
+	
     $out = $otpurl;
 
     $ins_inbox = "INSERT INTO `inbox` (`user_id`, `country_id`, `title`, `notification`, `type`, `created`) VALUES ('$posted_by', '$user_country', 'Lead Posted Successfully.', '$message', '1', '$posted_date')";
@@ -290,27 +231,91 @@ if ($result)
     $row_get_user = mysqli_fetch_assoc($res_get_user);
     $to_email = $row_get_user['email'];
 
-    $email = 'sales@eximbni.com';
-    $password = '@Miios&team9*';
-    $to_email = $to_email;
-    $message = "You Posted Lead with Referance ID: " . $leadref_id . " and description: " . $description . " is under admin verification. once been verified you requirement will be visble to public. A confirmation mail will be sent to you with in 72 hours.";
-    $subject = "Thank You For Posting Lead";
+    // ******************************************************* Start SEND OTP ON MAIL FOR BOTH Other user and Importer/Exporter *************************************************
+    if ($impexpmobile)
+    {
 
-    $mail = new PHPMailer(); // create a new object
-    $mail->IsSMTP(); // enable SMTP
-    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
-    $mail->SMTPAuth = true; // authentication enabled
-    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-    $mail->Host = "mail.eximbni.com";
-    $mail->Port = 587; // or 587
-    $mail->IsHTML(true);
-    $mail->Username = $email;
-    $mail->Password = $password;
-    $mail->SetFrom($email);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-    $mail->AddAddress($to_email);
-    $mail->Send();
+        $get_user1 = "select email from users where mobile='$impexpmobile'";
+        $res_get_user1 = mysqli_query($conn, $get_user1);
+        $row_get_user1 = mysqli_fetch_assoc($res_get_user1);
+        $to_email1 = $row_get_user1['email'];
+
+        $email = 'info@eximbin.com';
+        $password = 'EximBni.2020';
+        $to_email1 = $to_email1;
+        $subject = "Post Lead OTP Verification";
+
+        $mail = new PHPMailer(); // create a new object
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = "mail.eximbin.com";
+        $mail->Port = 587; // or 587
+        $mail->IsHTML(true);
+        $mail->Username = $email;
+        $mail->Password = $password;
+        $mail->SetFrom($email);
+        $mail->Subject = $subject;
+        $mail->Body = $impexpmsg;
+        $mail->AddAddress($to_email1);
+        $mail->Send();
+
+
+	    $email = 'info@eximbin.com';
+	    $password = 'EximBni.2020';
+	    $to_email = $to_email;
+	   
+	    $subject = "Post Lead OTP Verification";
+
+	    $mail = new PHPMailer(); // create a new object
+	    $mail->IsSMTP(); // enable SMTP
+	    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+	    $mail->SMTPAuth = true; // authentication enabled
+	    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
+	    $mail->Host = "mail.eximbin.com";
+	    $mail->Port = 587; // or 587
+	    $mail->IsHTML(true);
+	    $mail->Username = $email;
+	    $mail->Password = $password;
+	    $mail->SetFrom($email);
+	    $mail->Subject = $subject;
+	    $mail->Body = $msg;
+	    $mail->AddAddress($to_email);
+	    $mail->Send();
+
+
+
+    }
+
+
+
+	    $email = 'info@eximbin.com';
+	    $password = 'EximBni.2020';
+	    $to_email = $to_email;
+	   
+	    $subject = "Post Lead OTP Verification";
+
+	    $mail = new PHPMailer(); // create a new object
+	    $mail->IsSMTP(); // enable SMTP
+	    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+	    $mail->SMTPAuth = true; // authentication enabled
+	    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
+	    $mail->Host = "mail.eximbin.com";
+	    $mail->Port = 587; // or 587
+	    $mail->IsHTML(true);
+	    $mail->Username = $email;
+	    $mail->Password = $password;
+	    $mail->SetFrom($email);
+	    $mail->Subject = $subject;
+	    $mail->Body = $msg;
+	    $mail->AddAddress($to_email);
+	    $mail->Send();
+
+
+
+
+    // ******************************************************* End SEND OTP ON MAIL FOR BOTH Other user and Importer/Exporter *************************************************
 
     $countries = $request->country;
 
@@ -340,6 +345,7 @@ if ($result)
 }
 else
 {
+    //$outp = $query
     $outp = 0;
 }
 

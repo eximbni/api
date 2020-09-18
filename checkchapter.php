@@ -134,7 +134,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					
 					//Add transaction
 					$txn_id = rand(00000000,99999999);
-					$admin_income = "INSERT INTO `admin_income`(`user_id`, `txn_amount`, `txn_type`, `txn_for`, `txn_id`, `txn_date`, `status`) VALUES ('$user_id','1','credits','lead_purchase','$txn_id','$txn_date','1')";
+					$admin_income = "INSERT INTO `admin_income`(`user_id`, `txn_amount`, `txn_type`, `txn_for`, `txn_id`, `txn_date`, `status`) VALUES ('$user_id','$credit_s','credits','lead_purchase','$txn_id','$txn_date','1')";
 					$res_admin_income = mysqli_query($conn, $admin_income);	
 					if($res_admin_income)
 					{
@@ -147,7 +147,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					}
 					
 					
-					$add_txn = "INSERT INTO `txn_table`(`user_id`, `txn_type`, `txn_amount`, `txn_for`, `txn_id`, `txn_date`, `status`,lead_ref_id) VALUES ('$user_id','debits','1','lead_purchase','$txn_id','$txn_date','1','$reference_id')";
+					$add_txn = "INSERT INTO `txn_table`(`user_id`, `txn_type`, `txn_amount`, `txn_for`, `txn_id`, `txn_date`, `status`,lead_ref_id) VALUES ('$user_id','debits','$credit_s','lead_purchase','$txn_id','$txn_date','1','$reference_id')";
 					$res_add_txn = mysqli_query($conn, $add_txn);	
 					if($res_add_txn)
 					{

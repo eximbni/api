@@ -240,8 +240,8 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 		
 	//echo $message = "Thank You For registration with EXIMBNI. Please click the below link to verify your email address.<br> https://eximbin.com/confirmemail.php?user_id=$user_id&confirmation_id=$otp";
 		
-		$email = 'info@eximbin.com';
-	    $password = 'EximBni.2020';
+		$email = 'noreply@eximbni.com';
+	    $password = '@team&1234';
 		$to_email = $uemail;
 		$message = $message;
         $to_cc = 'miioslimited@gmail.com';
@@ -253,7 +253,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 		$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
 		$mail->SMTPAuth = true; // authentication enabled
 		$mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-		$mail->Host = "mail.eximbin.com";
+		$mail->Host = "mail.eximbni.com";
 		$mail->Port = 25; // or 587
 		$mail->IsHTML(true);
 		$mail->Username = $email;

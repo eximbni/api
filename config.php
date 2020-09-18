@@ -1,8 +1,7 @@
 <?php
-$host = "localhost";
-$user = "eximbinc_new";
-$pass = "EximBni2020";
-$db = "eximbinc_new";
+$host = "eximbni.com";
+$user = "exim_root";
+$pass = "EximBni.2020";
+$db = "eximbni";;
 $conn = mysqli_connect($host,$user,$pass,$db);
-
 ?>

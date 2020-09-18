@@ -179,8 +179,8 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
      
             	$message = "Your package upgrade successfully.";
     
-                $email = 'info@eximbin.com';
-                $password = 'EximBni.2020'; 
+                $email = 'noreply@eximbni.com';
+                $password = '@team&1234';
                 //$to_cc = 'patilvrushabh1008@gmail.com';
                 $message = $message;
                 $subject = "Package Upgrade Successfully.";
@@ -190,7 +190,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
                 $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
                 $mail->SMTPAuth = true; // authentication enabled
                 $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-                $mail->Host = "mail.eximbin.com";
+                $mail->Host = "mail.eximbni.com";
                 $mail->Port = 587; // or 587
                 $mail->IsHTML(true);
                 $mail->Username = $email;
@@ -309,7 +309,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
             $cfamount = $totalcommission-$sfamount;
             
             $payment_date = date("Y-m-d");
-            $cfcom = "insert into frachise_accounts (user_id,franchise_id,amount,payment_for,payment_date,status) values ('$userid','$franchise_id','$cfamount','upgrade','$payment_date','0')";
+            $cfcom = "insert into frachise_accounts (user_id,franchise_id,amount,payment_for,payment_date,status) values ('$userid','$franchise_id','$cfamount','subscription','$payment_date','0')";
             $rscf = mysqli_query($conn, $cfcom);
         
         }
@@ -320,14 +320,14 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
         //R&D Amount code starts here
         
         $rnd_amount = $amount*0.1;
-        $insrnd = "insert into rndfund (user_id,state, amount,country, payment_for,payment_date,status) values ('$userid','$state_id','$rnd_amount','$country_id','upgrade','$payment_date','1') ";
+        $insrnd = "insert into rndfund (user_id,state, amount,country, payment_for,payment_date,status) values ('$userid','$state_id','$rnd_amount','$country_id','subscription','$payment_date','1') ";
         $resrnd = mysqli_query($conn,$insrnd);
         
         //R&D Amount code ends here
         
         //EximBNI Account code starts here
         $exim_amount  = $amount-($cfamount+$sfamount+$rnd_amount);
-         $eximcom = "insert into eximfund (user_id,state_id,country_id,payment_for,amount,status,payment_date) values ('$userid','$state_id','$country_id','upgrade','$exim_amount','1','$payment_date')";
+         $eximcom = "insert into eximfund (user_id,state_id,country_id,payment_for,amount,status,payment_date) values ('$userid','$state_id','$country_id','subscription','$exim_amount','1','$payment_date')";
             $resexim = mysqli_query($conn, $eximcom);
         //EximBni code Ends Here		 
 		 

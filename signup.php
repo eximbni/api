@@ -32,7 +32,7 @@ $otp = mt_rand(1111, 9999);
 $fullname = $request->fullname;
 $fullname = stripslashes($fullname); // sql injections
 $uemail = $request->email;
-$email = stripslashes($email);
+$email = stripslashes($uemail);
 $mobile = $request->mobile;
 $mobile = stripslashes($mobile);
 $password = $request->password;
@@ -55,7 +55,19 @@ $two = substr(str_shuffle($permitted_chars) , 0, 2);
 $four = substr(str_shuffle($permitted_chars) , 0, 4);
 $ref_code = $two . $country_code . $four;
 $long = $request->long;
+if($long==''){
+    $long = "0.0";
+}
+else {
+    $long= $long;
+}
 $lat = $request->lat;
+if($lat==''){
+    $lat='0.0';
+}
+else {
+    $lat=$lat;
+}
 $facebook = $request->facebook;
 $linkdin = $request->linkdin;
 $twitter = $request->twitter;
@@ -67,15 +79,39 @@ $tax_no = $request->tax_number;
 $stars = $request->stars;
 $ieccode = $request->ieccode;
 $gstno = $request->gstno;
+if($gstno=='none'){
+    $gstno=0;
+}
 $otherno = $request->otherno;
+if($otherno==''){
+    $otherno=0;
+}
 $other_tax = $request->other_tax;
+if($other_tax=''){
+    $other_tax=0;
+}
 $isSubscribtion = $request->issubscribtion;
+if($isSubscribtion=='none'){
+    $isSubscribtion=0;
+}
 $isTaxnotpplicable = 2;
 $todaysdate = date("Y-m-d H:i:00");
 $model = $request->model;
+if($model==''){
+    $model=0;
+}
 $manufacturer = $request->manufacturer;
+if($manufacturer){
+    $manufacturer="web";
+}
 $version = $request->version;
+if($version==''){
+    $version = "none";
+}
 $serialno = $request->serialno;
+if($serialno==''){
+    $serialno="none";
+}
 $platform = $request->platform;
 
 $from_time = "09:00";
@@ -107,8 +143,8 @@ $sender = 'EXIMBNI';
 $mob = $mobile;
 $auth = 'D!~3133g8mKCYNGU7';
 $country_code = $country_code;
-
-$url = $device_id = $request->device_id;
+$url = ''; 
+$device_id = $request->device_id;
 $ipaddress = $_SERVER['REMOTE_ADDR'];
 $chkmobile = "select * from users where mobile='$fmobile'";
 $chkres = mysqli_query($conn, $chkmobile);
@@ -129,7 +165,50 @@ else
     else
     {
 
-        $query = "INSERT INTO users (name,username,email,mobile,country_id, state_id, zipcode, longitude, latitude, business_name,business_address,password,ipaddress,user_type,facebook,linkdin,twitter,whatsapp,vchat,skype,expyears,stars,ieccode,gstno,otherno,other_tax,isSubscribtion,isTaxnotpplicable,ref_code,sponcer_id,model,platform,version,manufacturer,serialno,from_time,to_time,device_id,user_specification,licences_no,subscription_id) values('$fullname','$uemail','$uemail','$fmobile','$country','$state','$zipcode','$long','$lat','$company','$address','$password','$ipaddress','$user_type','$facebook','$linkdin','$twitter','$whatsapp','$vchat','$skype','$expyears','$stars','$ieccode','$gstno','$otherno','$other_tax','$isSubscribtion','$isTaxnotpplicable','$ref_code','$sponcer_id','$model','$platform','$version','$manufacturer','$serialno','09:00','17:00','$device_id','$othertpe','$license_no','$subscription_id')";
+         $query = "INSERT INTO users (name,username,email,mobile,country_id, state_id, zipcode, longitude, latitude, business_name, business_address, password,ipaddress, user_type, facebook, linkdin, twitter, whatsapp, vchat,
+        skype, expyears, stars, ieccode, gstno, otherno, other_tax, isSubscribtion, isTaxnotpplicable, ref_code, sponcer_id, model, platform, version, manufacturer, serialno, from_time, to_time, device_id, user_specification,
+        licences_no, subscription_id) 
+        values(
+            '$fullname',
+            '$email',
+            '$email',
+            '$fmobile',
+            '$country',
+            '$state',
+            '$zipcode',
+            '$long',
+            '$lat',
+            '$company',
+            '$address',
+            '$password',
+            '$ipaddress',
+            '$user_type',
+            '$facebook',
+            '$linkdin',
+            '$twitter',
+            '$whatsapp',
+            '$vchat',
+            '$skype',
+            '$expyears',
+            '$stars',
+            '$ieccode',
+            '$gstno',
+            '$otherno',
+            '$other_tax',
+            '$isSubscribtion',
+            '$isTaxnotpplicable',
+            '$ref_code',
+            '$sponcer_id',
+            '$model',
+            '$platform',
+            '$version',
+            '$manufacturer',
+            '$serialno','09:00','17:00',
+            '$device_id',
+            '$othertpe',
+            '$license_no',
+            '$subscription_id'
+            )";
         $result = mysqli_query($conn, $query);
         if ($result)
         {
@@ -177,8 +256,9 @@ else
             $resotp = mysqli_query($conn, $otpins);
 
 
-            $email = 'info@eximbin.com';
-            $password = 'EximBni.2020';
+            //$email = 'info@eximbin.com';
+            $email = 'noreply@eximbni.com';
+            $password = '@team&1234';
             $to_email = $uemail;
             //$to_cc = 'patilvrushabh1008@gmail.com';
             $message = $msg;
@@ -189,7 +269,7 @@ else
             $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
             $mail->SMTPAuth = true; // authentication enabled
             $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-            $mail->Host = "mail.eximbin.com";
+            $mail->Host = "mail.eximbni.com";
             $mail->Port = 587; // or 587
             $mail->IsHTML(true);
             $mail->Username = $email;
@@ -204,10 +284,11 @@ else
 
 
             //Email To MIIOS LIMITED
-            $message = "New Registrtion in EXIM BNI. <br> User name : <strong>" . $fullname . " </strong>,<br>  Moblie No :  <strong>+" . $fmobile . " </strong>, <br> Address : <strong>" . $address . " </strong>, <br> Business Name : <strong>" . $company . " </strong>, <br> Sponcer ID :  <strong>" . $sponcer_id . " </strong>, <br> Operating System :  <strong>" . $platform . " </strong>,<br>  Device Model :  <strong>" . $manufacturer." </strong>.";
+            $message = "New Registrtion in EXIM BNI. <br> User name : <strong>" . $fullname . " </strong>,<br>  Moblie No :  <strong>+" . $fmobile . " </strong>, <br> Address : <strong>" . $address . " </strong>, <br> Business Name : <strong>" . $company . " </strong>, <br> Sponcer ID :  <strong>" . $sponcer_id . " </strong>, <br> Operating System :  <strong>" . $platform . " </strong>,<br>  Device Model :  <strong>" . $model." </strong>.";
 
-            $email = 'info@eximbin.com';
-            $password = 'EximBni.2020';
+            //$email = 'info@eximbin.com';
+            $email = 'noreply@eximbni.com';
+            $password = '@team&1234';
             $to_email = 'miioslimited@gmail.com';
             $to_cc = 'logins@eximbni.com';
             $to_bcc = 'muralimiios@gmail.com ';
@@ -219,7 +300,7 @@ else
             $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
             $mail->SMTPAuth = true; // authentication enabled
             $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-            $mail->Host = "mail.eximbin.com";
+            $mail->Host = "mail.eximbni.com";
             $mail->Port = 587; // or 587
             $mail->IsHTML(true);
             $mail->Username = $email;
@@ -268,7 +349,7 @@ else
         }
         else
         {
-            $outp = 0;
+            $outp =  0;
         }
     }
 }

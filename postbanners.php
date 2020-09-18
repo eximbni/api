@@ -37,7 +37,7 @@ move_uploaded_file($_FILES['file']['tmp_name'],$location.$filename);
 	    
 	    $todaysdate = date('Y-m-d H:i:00');
 	    
-	    $query="INSERT INTO banner (posted_by,banner_image,category_id,chapter_id) values ('$posted_by','$banner_image','$category_id','$chapter_id')";
+	    $query="INSERT INTO banner (posted_by,banner_image,category_id,chapter_id,status) values ('$posted_by','$banner_image','$category_id','$chapter_id','0')";
 	    $result = mysqli_query($conn,$query);
 		if($result){
 		    

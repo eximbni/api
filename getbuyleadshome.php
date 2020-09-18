@@ -30,11 +30,11 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 		
 		$result =mysqli_query($conn,$sql);
 		$count = mysqli_num_rows($result);
-		if($count >0){
+		if($count > 0){
 		
 			while ($row = mysqli_fetch_assoc($result)) {
 			$chapter_id[] = $row['chapter_id'];
-				// print_r ($row);
+				 //print_r ($row);
 			}
 			
 			foreach($chapter_id as $key){
@@ -50,8 +50,20 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 				}
 			}
 		}
+		else if($count == 0){
+			//$outp=0;
+			 $getleads = "select * from leads where lead_type='BUY' and country_id = $country_id order by posted_date DESC";
+		      $getres = mysqli_query($conn,$getleads);
+			if($getres){
+			    while($rows=mysqli_fetch_assoc($getres)){
+					$outp[]=$rows;
+					}
+					
+				}
+			
+		}
 		else{
-			$outp=0;
+		    $outp=0;
 		}
 	
 		$outp= json_encode($outp,JSON_INVALID_UTF8_IGNORE);

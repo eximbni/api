@@ -109,7 +109,30 @@ if ($rescountry_code)
 $priceoption = $price_option;
 
 $query = "INSERT INTO leads (lead_type,posted_by,hsn_id,chapter_id,categories_id,product_id,uom_id, country_id, quantity,description,posted_date,expiry_date,sno,price_inusd,currency,price_option,index_per,special_instruc,inspection_auth,port_type,loading_port,destination_port) 
-    values('$lead_type','$posted_by','$hsn_id','$chapter_id','$category_id','$product_id','$uom_id','$user_country','$quantity','$description','$posted_date','$expiry_date','$nsno','$price_inusd','$currency','$priceoption','$index_per','$special_instruc','$inspection_auth','$loading_port_type','$loading_port','$destination_port')";
+    values(
+        '$lead_type',
+        '$posted_by',
+        '$hsn_id',
+        '$chapter_id',
+        '$category_id',
+        '$product_id',
+        '$uom_id',
+        '$user_country',
+        '$quantity',
+        '$description',
+        '$posted_date',
+        '$expiry_date',
+        '$nsno',
+        '$price_inusd',
+        '$currency',
+        '$priceoption',
+        '$index_per',
+        '$special_instruc',
+        '$inspection_auth',
+        '$loading_port_type',
+        '$loading_port',
+        '$destination_port'
+        )";
 
 //echo $query;
 $result = mysqli_query($conn, $query);
@@ -245,49 +268,58 @@ if ($result)
         $row_get_user1 = mysqli_fetch_assoc($res_get_user1);
         $to_email1 = $row_get_user1['email'];
 
-        $email = 'info@eximbin.com';
-        $password = 'EximBni.2020';
-        $to_email1 = $to_email1;
-        $subject = "Post Lead OTP Verification";
+            //$email = 'info@eximbin.com';
+            //$password = 'EximBni.2020';
+           
+            $email = 'noreply@eximbni.com';
+            $password = '@team&1234';
+            $to_email1 = $to_email1;
+            //$to_cc = 'ganesh.vab@gmail.com';
+            $subject = "Post Lead OTP Verification";
 
-        $mail = new PHPMailer(); // create a new object
-        $mail->IsSMTP(); // enable SMTP
-        $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
-        $mail->SMTPAuth = true; // authentication enabled
-        $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-        $mail->Host = "mail.eximbin.com";
-        $mail->Port = 587; // or 587
-        $mail->IsHTML(true);
-        $mail->Username = $email;
-        $mail->Password = $password;
-        $mail->SetFrom($email);
-        $mail->Subject = $subject;
-        $mail->Body = $impexpmsg;
-        $mail->AddAddress($to_email1);
-        $mail->Send();
+            $mail = new PHPMailer(); // create a new object
+            $mail->IsSMTP(); // enable SMTP
+            $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+            $mail->SMTPAuth = true; // authentication enabled
+            $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
+            $mail->Host = "mail.eximbni.com";
+            $mail->Port = 587; // or 587
+            $mail->IsHTML(true);
+            $mail->Username = $email;
+            $mail->Password = $password;
+            $mail->SetFrom($email);
+            $mail->Subject = $subject;
+            $mail->Body = $impexpmsg;
+            $mail->AddAddress($to_email1);
+           // $mail->AddCC($to_cc);
+            $mail->Send(); 
 
 
-	    $email = 'info@eximbin.com';
-	    $password = 'EximBni.2020';
-	    $to_email = $to_email;
-	   
-	    $subject = "Post Lead OTP Verification";
 
-	    $mail = new PHPMailer(); // create a new object
-	    $mail->IsSMTP(); // enable SMTP
-	    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
-	    $mail->SMTPAuth = true; // authentication enabled
-	    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-	    $mail->Host = "mail.eximbin.com";
-	    $mail->Port = 587; // or 587
-	    $mail->IsHTML(true);
-	    $mail->Username = $email;
-	    $mail->Password = $password;
-	    $mail->SetFrom($email);
-	    $mail->Subject = $subject;
-	    $mail->Body = $msg;
-	    $mail->AddAddress($to_email);
-	    $mail->Send();
+            //$email = 'info@eximbin.com';
+            $email = 'noreply@eximbni.com';
+            $password = '@team&1234';
+            $to_email = $to_email;
+            $to_cc = 'ganesh.vab@gmail.com';
+            $message = $msg;
+            $subject = "Post Lead OTP Verification";
+
+            $mail = new PHPMailer(); // create a new object
+            $mail->IsSMTP(); // enable SMTP
+            $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+            $mail->SMTPAuth = true; // authentication enabled
+            $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
+            $mail->Host = "mail.eximbni.com";
+            $mail->Port = 587; // or 587
+            $mail->IsHTML(true);
+            $mail->Username = $email;
+            $mail->Password = $password;
+            $mail->SetFrom($email);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+            $mail->AddAddress($to_email);
+            $mail->AddCC($to_cc);
+            $mail->Send(); 
 
 
 
@@ -295,29 +327,30 @@ if ($result)
 
 
 
-	    $email = 'info@eximbin.com';
-	    $password = 'EximBni.2020';
-	    $to_email = $to_email;
-	   
-	    $subject = "Post Lead OTP Verification";
+            //$email = 'info@eximbin.com';
+            $email = 'noreply@eximbni.com';
+            $password = '@team&1234';
+            $to_email = $to_email;
+            $to_cc = 'ganesh.vab@gmail.com';
+            $message = $msg;
+            $subject = "Post Lead OTP Verification";
 
-	    $mail = new PHPMailer(); // create a new object
-	    $mail->IsSMTP(); // enable SMTP
-	    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
-	    $mail->SMTPAuth = true; // authentication enabled
-	    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-	    $mail->Host = "mail.eximbin.com";
-	    $mail->Port = 587; // or 587
-	    $mail->IsHTML(true);
-	    $mail->Username = $email;
-	    $mail->Password = $password;
-	    $mail->SetFrom($email);
-	    $mail->Subject = $subject;
-	    $mail->Body = $msg;
-	    $mail->AddAddress($to_email);
-	    $mail->Send();
-
-
+            $mail = new PHPMailer(); // create a new object
+            $mail->IsSMTP(); // enable SMTP
+            $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+            $mail->SMTPAuth = true; // authentication enabled
+            $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
+            $mail->Host = "mail.eximbni.com";
+            $mail->Port = 587; // or 587
+            $mail->IsHTML(true);
+            $mail->Username = $email;
+            $mail->Password = $password;
+            $mail->SetFrom($email);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+            $mail->AddAddress($to_email);
+            $mail->AddCC($to_cc);
+            $mail->Send(); 
 
 
     // ******************************************************* End SEND OTP ON MAIL FOR BOTH Other user and Importer/Exporter *************************************************

@@ -46,6 +46,16 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 				}
 			}
 		}
+		else if($count == 0)
+		{
+		    $getleads = "select * from leads where country_id='$country_id' and lead_type='SELL' order by posted_date DESC";
+			$getres = mysqli_query($conn,$getleads);
+			if($getres){
+				while($rows=mysqli_fetch_assoc($getres)){
+					$outp[]=$rows;
+					}
+				}
+		}
 		else{
 			$outp="0";
 		}

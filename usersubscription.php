@@ -34,6 +34,7 @@ $duration = $request->duration; // '30';
 $country_id = $request->country_id; //'99';
 $state_id = $request->state_id; //'1476';
 $credits = $request->credits;
+$rfq_credits=0;
 if ($duration == 30)
 {
     $credits = $credits / 12;
@@ -57,7 +58,7 @@ $rescredit = mysqli_query($conn, $credit);
     }
     else
 {
-   $outp=0;
+   $outp=$credit;
     
 }
 }

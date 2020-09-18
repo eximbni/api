@@ -25,19 +25,20 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 		$count = mysqli_num_rows($result);
 		if($count >0){
 		
-while ($row = mysqli_fetch_assoc($result)) {
- $arr[] = $row; 
-}
+			while ($row = mysqli_fetch_assoc($result)) {
+			 $arr[] = $row; 
+			}
     $outp= json_encode($arr);
 		
 		}
 		else{
 			$outp="0";
 		}
+	
+		echo($outp);
 		
 	$conn->close();
 		
-		echo($outp);
 	
 
 	

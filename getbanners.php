@@ -22,7 +22,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	$country_id = $_GET['country_id'];
     $respt = 0;
     
-/*	
+	
 	$sqlbanner="select chapter_id from subscription_chapter where user_id='$user_id' AND status='1' ";
     $resquery = mysqli_query($conn,$sqlbanner);
     $bannercnt = mysqli_num_rows($resquery);
@@ -50,15 +50,15 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     }else{
         $respt = 0;
     }
-    if($respt==0){ */
-        $get = "select banner_image from banner order by id ASC";
+    if($respt==0){ 
+        $get = "select banner_image from banner where status='1' order by id ASC";
     	$res = mysqli_query($conn,$get);
     	if($res){
     		while($row=mysqli_fetch_assoc($res)){
     			$outp[]=$row;
     		}
     	}        
-  //  }
+    }
 	
 	
    $outp = json_encode($outp);
