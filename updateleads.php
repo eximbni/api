@@ -24,7 +24,7 @@ include ("config.php");
     $description = $request->description;
     $uom = $request->uom;
     $loading_port = $request->loading_port; 
-    //$loading_port = $loading_port->port; 
+    
     $destination_port = $request->destination_port;
     $port_type = $request->port_type;  
     $price_inusd = $request->price_inusd;
@@ -95,7 +95,7 @@ include ("config.php");
     
     */
 
-    $sql_insert_lm = "INSERT INTO `lead_modifications` (`lead_id`, `description`, `uom`, `loading_port`, `destination_port`, `port_type`, `price`, `price_option`, `quantity`, `inspection_auth`, `special_instruc`, `expiry_date`,`created_date`) VALUES ('$lead_id', '$description', '$uom', '$loading_port', '$destination_port', '$port_type', '$price_inusd','$price_option', '$quantity', '$inspection_auth', '$special_instruc','$expiry_date','$posted_date' )";
+     $sql_insert_lm = "INSERT INTO `lead_modifications` (`lead_id`, `description`, `uom`, `loading_port`, `destination_port`, `port_type`, `price`, `price_option`, `quantity`, `inspection_auth`, `special_instruc`, `expiry_date`,`created_date`) VALUES ('$lead_id', '$description', '$uom', '$loading_port', '$destination_port', '$port_type', '$price_inusd','$price_option', '$quantity', '$inspection_auth', '$special_instruc','$expiry_date','$posted_date' )";
      $qry_insert_lm = mysqli_query($conn, $sql_insert_lm);
      if($qry_insert_lm){
          
@@ -105,13 +105,13 @@ include ("config.php");
             $outp = 1;
             
         }else{
-           $outp = 0; 
+           $outp = $update_leads; 
         }
          
         //$outp = 1; 
          
      }else{
-         $outp = 0;
+         $outp = $sql_insert_lm;
      }
      
     $outp = json_encode($outp, JSON_INVALID_UTF8_IGNORE);

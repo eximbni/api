@@ -45,7 +45,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
         	
 	    } 
 	    
-	    $respt = count($outp);
+	    $respt = mysqli_num_rows($res1);
         
     }else{
         $respt = 0;

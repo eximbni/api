@@ -25,7 +25,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	    $chkotp="select * from otp where mobile='$mobile' and otp = '$otp' and status = 1";
         $chkres = mysqli_query($conn,$chkotp);
 	    $count = mysqli_num_rows($chkres);
-	    if($count==1){
+	    if($count == 1){
 			
 			$sql_userid = "select id from users where mobile='$mobile'";
 			$res_userid = mysqli_query($conn,$sql_userid);
@@ -37,8 +37,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	        
 	        $updotp = "delete from `otp` WHERE `mobile` = '$mobile' and otp ='$otp'";
 	        $updres = mysqli_query($conn,$updotp);
-	        
-	        
 	        
 	        $outp=1;
 	        

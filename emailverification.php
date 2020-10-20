@@ -183,7 +183,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
                                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="center" style="border-radius: 5px;" bgcolor="#34713a"><a href="https://eximbin.com/confirmemail.php?user_id='.$user_id.'&confirmation_id='.$otp.' target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #34713a; display: inline-block;">Confirm Account</a></td>
+                                                <td align="center" style="border-radius: 5px;" bgcolor="#34713a"><a href="https://eximbni.com/confirmemail.php?user_id='.$user_id.'&confirmation_id='.$otp.' target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #34713a; display: inline-block;">Confirm Account</a></td>
                                             </tr>
                                         </table>
                                     </td>

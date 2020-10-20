@@ -31,7 +31,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	    $count = mysqli_num_rows($chkres);
 	    if($count==1){
 	        
-	        $upduser = "UPDATE leads SET `status` = '1' WHERE leadref_id = '$leadref_id'";
+	        $upduser = "UPDATE leads SET status = '1' WHERE leadref_id = '$leadref_id'";
 	        $updusr = mysqli_query($conn,$upduser);
 	        
 	        $updotp = "delete from `otp` WHERE `mobile` = '$mobile' and otp ='$otp'";

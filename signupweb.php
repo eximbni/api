@@ -23,6 +23,8 @@ include ("config.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+//print_r($request);
+
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 //require 'PHPMailer/src/PHPMailerAutoload.php';
@@ -165,8 +167,7 @@ else
     else
     {
 
-         $query = "INSERT INTO users (name,username,email,mobile,country_id, state_id, zipcode, longitude, latitude, business_name,business_address, password,ipaddress, user_type, facebook, linkdin, twitter, whatsapp, vchat,skype, expyears, stars,ieccode, gstno, otherno, other_tax, isSubscribtion, isTaxnotpplicable, ref_code, sponcer_id, model, platform, version,manufacturer, serialno, from_time, to_time, device_id, user_specification,licences_no, subscription_id,created) values('$fullname','$email','$email','$fmobile','$country','$state','$zipcode','$long','$lat','$company','$address','$password','$ipaddress','$user_type','$facebook','$linkdin','$twitter','$whatsapp','$vchat','$skype','$expyears','$stars','$ieccode','$gstno','$otherno','$other_tax','$isSubscribtion','$isTaxnotpplicable','$ref_code','$sponcer_id','$model','$platform','$version','$manufacturer','$serialno','09:00','17:00','$device_id','$othertpe','$license_no','$subscription_id','$todaysdate')";
-        
+        $query = "INSERT INTO users (name,username,email,mobile,country_id, state_id, zipcode, longitude, latitude, business_name,business_address, password,ipaddress, user_type, facebook, linkdin, twitter, whatsapp, vchat,skype, expyears, stars,ieccode, gstno, otherno, other_tax, isSubscribtion, isTaxnotpplicable, ref_code, sponcer_id, model, platform, version,manufacturer, serialno, from_time, to_time, device_id, user_specification,licences_no, subscription_id,created) values('$fullname','$email','$email','$fmobile','$country','$state','$zipcode','$long','$lat','$company','$address','$password','$ipaddress','$user_type','$facebook','$linkdin','$twitter','$whatsapp','$vchat','$skype','$expyears','$stars','$ieccode','$gstno','$otherno','$other_tax','$isSubscribtion','$isTaxnotpplicable','$ref_code','$sponcer_id','$model','$platform','$version','$manufacturer','$serialno','09:00','17:00','$device_id','$othertpe','$license_no','$subscription_id','$todaysdate')";
         $result = mysqli_query($conn, $query);
         if ($result)
         {
@@ -193,9 +194,6 @@ else
             $msg = "Your EXIMBNI verification OTP code is " . $otp . ". Please DO NOT share this OTP with anyone.";
             //$msg = urlencode($msg);
 
-            /*$india_sql = mysqli_query($conn,"SELECT country_id FROM `countries` WHERE `name` = 'india' ORDER BY `name` ASC");
-            $india_res = mysqli_fetch_array($india_sql);
-            $india_id = $india_res['country_id'];*/
 
             if ($country_code != 91)
             {
@@ -308,10 +306,10 @@ else
         else
         {
             $outp =  0;
-        }
+        } 
     }
 }
-$outp = json_encode($outp);
+$outp = json_encode($query);
 echo ($outp);
 
 $conn->close();

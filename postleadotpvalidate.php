@@ -60,8 +60,8 @@ require '../PHPMailer/src/SMTP.php';
     	            $updres = mysqli_query($conn,$updotp);
         	        
         	        $outp=1;
-        	        $email = 'info@eximbin.com';
-    $password = 'EximBni.2020';
+    $email = 'noreply@eximbni.com';
+    $password = '@team&1234';
     $to_email = $to_email;
     $message = "You Posted Lead with Referance ID: " . $leadref_id . " is under admin verification. once been verified you requirement will be visble to public. A confirmation mail will be sent to you with in 72 hours.";
     $subject = "Thank You For Posting Lead";
@@ -71,7 +71,7 @@ require '../PHPMailer/src/SMTP.php';
     $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
     $mail->SMTPAuth = true; // authentication enabled
     $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-    $mail->Host = "mail.eximbin.com";
+    $mail->Host = "mail.eximbni.com";
     $mail->Port = 587; // or 587
     $mail->IsHTML(true);
     $mail->Username = $email;

@@ -32,7 +32,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     	    $chkresmail = mysqli_query($conn,$chkemail);
     	    $row = mysqli_fetch_array($chkresmail);
     	    $country = $row['country'];
-		  
+		    $user_image = $row["user_image"];
 		    $message = "Your Profile Image updated Successfully";
 		    
 		    $ins_inbox= "INSERT INTO `inbox` (`user_id`, `country_id`, `title`, `notification`, `type`, `created`) VALUES ('$user_id', '$country', 'Profile Image Updated Successfully.', '$message', '1', '$todaysdate')";
@@ -42,9 +42,9 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     		$result_unotify = mysqli_query($conn,$ins_unotify);
 		}
 		else{
-			$outp=$query;
+			$outp=0;
 		}
-		$outp = json_encode($outp);
+		$outp = json_encode($user_image);
 		
 		echo($outp);
 	

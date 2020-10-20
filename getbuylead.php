@@ -19,7 +19,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     $request = json_decode($postdata);
 
 	include("config.php"); 
-		$sql = "select l.*, u.* from leads l, uoms u where l.lead_type='Buy' and l.status ='1' and l.uom_id = u.id";
+		$sql = "select l.*, u.* from leads l, uoms u where l.lead_type='Buy' and l.status ='1' and l.uom_id = u.id AND l.posted_by IN (SELECT id FROM users WHERE status='1' )";
 		$result = mysqli_query($conn,$sql);
 		$count = mysqli_num_rows($result);
 		if($count >0){

@@ -31,12 +31,10 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 			
 		
 		else{
-			$outp="0";
+			$outp=0;
 		}
 		
-		
-		
-		$outp= json_encode($outp);
+		//$outp= json_encode($outp);
 		echo($outp);
 		$conn->close();
 	

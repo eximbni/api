@@ -19,25 +19,25 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     $request = json_decode($postdata);
 
 	include("config.php"); 
-	$fr_id = $_GET['fr_id'];
-
-			$getleads = "select sum(amount) as amount from frachise_accounts where payment_for='Subscription' and franchise_id='$fr_id'";
-			$getres = mysqli_query($conn,$getleads);
-			$getnumrows = mysqli_num_rows($getres);
-			if($getnumrows > 0){
-				
-				while($rows=mysqli_fetch_assoc($getres)){
-					$outp=$rows['amount'];
-				}
-			
-			}else{
-				$outp=0;
-			}
+	$franchise_id = $_GET['franchise_id'];
+        $sql = "SELECT id, target_type, month, quarter, year, target, achievement  FROM `franchise_target` WHERE `franchise_id` = '$franchise_id' AND status = '1' ORDER BY id DESC LIMIT 0,3";
+		$result =mysqli_query($conn,$sql);
+		$count = mysqli_num_rows($result);
+		if($count >0){
 		
+            while ($row = mysqli_fetch_assoc($result)) {
+                $outp[] = $row; 
+            }
+        
+		}
+		else{
+			$outp="0";
+		}
 		
+	$outp= json_encode($outp);
 		
-		//$outp= json_encode($outp);
+	$conn->close();
+		
 		echo($outp);
-		$conn->close();
 	
 ?>

@@ -29,7 +29,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 		}
 		
 		
-        $sql = "SELECT l.id as id, l.leadref_id, l.lead_type, l.chapter_id, l.description FROM leads l WHERE $chapter_condition l.lead_type='$lead_type' and l.status=1";
+        $sql = "SELECT l.id as id, l.leadref_id, l.lead_type, l.chapter_id, l.description, l.hsn_id, l.posted_date, l.expiry_date, l.quantity FROM leads l WHERE $chapter_condition l.lead_type='$lead_type' and l.status=1";
 		$result = mysqli_query($conn,$sql);
 		$count = mysqli_num_rows($result);
 		if($count >0){

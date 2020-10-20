@@ -1,5 +1,4 @@
-
-	<?php
+<?php
 if (isset($_SERVER['HTTP_ORIGIN'])) {
         header("Access-Control-Allow-Origin:*");
         header('Access-Control-Allow-Credentials: true');
@@ -20,7 +19,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     $request = json_decode($postdata);
 
 	include("config.php"); 
-	include("fcmpush.php");
+	//include("fcmpush.php");
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
@@ -60,8 +59,8 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					$to_email = $row_get_user['email'];
 					$country = $row_get_user['country_id'];
 				
-					$email = 'info@eximbin.com';
-	                $password = 'EximBni.2020';
+					$email = 'noreply@eximbni.com';
+	                $password = '@team&1234';
 					$to_email = $to_email;
 					$message = "Your credits are insufficient to buy this ";
 					$subject = "Insufficient Credits";
@@ -71,8 +70,8 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
 					$mail->SMTPAuth = true; // authentication enabled
 					$mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-					$mail->Host = "mail.eximbin.com";
-					$mail->Port = 25; // or 587
+					$mail->Host = "mail.eximbni.com";
+					$mail->Port = 587; // or 587
 					$mail->IsHTML(true);
 					$mail->Username = $email;
 					$mail->Password = $password;
@@ -108,7 +107,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					$mail->SMTPAuth = true; // authentication enabled
 					$mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
 					$mail->Host = "mail.eximbin.com";
-					$mail->Port = 25; // or 587
+					$mail->Port = 587; // or 587
 					$mail->IsHTML(true);
 					$mail->Username = $email;
 					$mail->Password = $password;
@@ -143,7 +142,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					else
 					{
 						$message= "Not inserted";
-						mysqli_error($conn);
+					
 					}
 					
 					
@@ -156,7 +155,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 					else
 					{
 						$message= "Transaction Not inserted";
-						mysqli_error($conn);
+						
 					}
 					//Add transaction
 					
@@ -186,7 +185,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
             	        }
             	    }
         
-            	    fcm($push_message,$id,$title);
+            	    //fcm($push_message,$id,$title);
 	            }
 	        }        
 	}

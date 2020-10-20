@@ -49,7 +49,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 //print_r($hsncode);
 		}
 		foreach($hsncode as $val){
-	$query = "select *,(select count(*) from leads where hsn_id='$val' and status=1 and expiry_date>='$date' and lead_type='Sell')as sellleads,(select count(*) from leads where hsn_id='$val' and status=1 and expiry_date>='$date')as leads_count,(select count(*) from leads where hsn_id='$val' and status=1 and expiry_date>='$date' and lead_type='Buy')as buyleads from $table_name where hscode='$val' GROUP BY id ORDER BY id DESC ";
+	$query = "select *,(select count(*) from leads where hsn_id='$val' and status=1 and posted_by IN (SELECT id FROM users WHERE status='1' ) and expiry_date>='$date' and lead_type='Sell')as sellleads,(select count(*) from leads where hsn_id='$val' and status=1 and posted_by IN (SELECT id FROM users WHERE status='1' ) and expiry_date>='$date')as leads_count,(select count(*) from leads where hsn_id='$val' and status=1 and expiry_date>='$date' and lead_type='Buy')as buyleads from $table_name where hscode='$val' GROUP BY id ORDER BY id DESC ";
 	$response = mysqli_query($conn,$query);
 	if($response){
 		while($row=mysqli_fetch_assoc($response)){

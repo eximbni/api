@@ -32,7 +32,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     }
     
     if($pck_id==40){
-        $getleads = "select l.*,u.uom,(select count(*) from myfav_hscodes where user_id='$user_id' and hscode=l.hsn_id) as hsstate, (select remind_date from lead_reminders where user_id='$user_id' and lead_id=l.id) as laterstate,v.* from leads l, uoms u,lead_display_countries v,  subscription_chapter sc where l.uom_id=u.id and l.lead_type = 'Sell' and v.country_id = '$country_id' and v.lead_id=l.id and l.posted_by != '$user_id' and l.status=1 and l.expiry_date >= '$date_today' and l.id NOT IN (SELECT lead_id from purchased_leads where user_id = '$user_id') group by l.id";
+        $getleads = "select l.*,u.uom,(select count(*) from myfav_hscodes where user_id='$user_id' and hscode=l.hsn_id) as hsstate, (select remind_date from lead_reminders where user_id='$user_id' and lead_id=l.id) as laterstate,v.* from leads l, uoms u,lead_display_countries v,  subscription_chapter sc where l.uom_id=u.id and l.lead_type = 'Sell' and v.country_id = '$country_id' and v.lead_id=l.id and l.posted_by != '$user_id' and l.status=1 and l.expiry_date >= '$date_today' and l.id NOT IN (SELECT lead_id from purchased_leads where user_id = '$user_id') AND l.posted_by IN (SELECT id FROM users WHERE status='1') group by l.id";
 		$getres = mysqli_query($conn,$getleads);
 		if($getres){
 			while($rows=mysqli_fetch_assoc($getres)){
@@ -57,7 +57,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     			
     			foreach($chapter_id as $key){
         		//$getleads = "select l.*,u.uom, v.country_id from leads l, uoms u, lead_display_countries v, subscription_chapter sc  where l.uom_id=u.id and l.lead_type = 'Sell' and l.id=v.lead_id and l.chapter_id = '$key' and v.country_id = '$country_id' and l.posted_by != '$user_id' and sc.user_id = l.posted_by and l.status=1 and l.expiry_date>'$date_today' and l.id NOT IN (SELECT lead_id from purchased_leads where user_id = '$user_id') group by l.id ";
-               $getleads = "select l.*,u.uom,(select count(*) from myfav_hscodes where user_id='$user_id' and hscode=l.hsn_id) as hsstate, (select remind_date from lead_reminders where user_id='$user_id' and lead_id=l.id) as laterstate,v.* from leads l, uoms u,lead_display_countries v,  subscription_chapter sc where l.uom_id=u.id and l.lead_type = 'Sell' and l.chapter_id = '$key' and v.country_id = '$country_id' and v.lead_id=l.id and l.posted_by != '$user_id' and l.status=1 and l.expiry_date >= '$date_today' and l.id NOT IN (SELECT lead_id from purchased_leads where user_id = '$user_id') group by l.id";
+               $getleads = "select l.*,u.uom,(select count(*) from myfav_hscodes where user_id='$user_id' and hscode=l.hsn_id) as hsstate, (select remind_date from lead_reminders where user_id='$user_id' and lead_id=l.id) as laterstate,v.* from leads l, uoms u,lead_display_countries v,  subscription_chapter sc where l.uom_id=u.id and l.lead_type = 'Sell' and l.chapter_id = '$key' and v.country_id = '$country_id' and v.lead_id=l.id and l.posted_by != '$user_id' and l.status=1 and l.expiry_date >= '$date_today' and l.id NOT IN (SELECT lead_id from purchased_leads where user_id = '$user_id')  AND l.posted_by IN (SELECT id FROM users WHERE status='1') group by l.id";
     			$getres = mysqli_query($conn,$getleads);
     			if($getres){
     				while($rows=mysqli_fetch_assoc($getres)){

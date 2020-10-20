@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 foreach($chapter_id as $val){
-	$query = "select c.*, (select count(*) from leads where chapter_id='$val' and status=1 and expiry_date>='$date' and lead_type='Sell')as sellleads,(select count(*) from leads where chapter_id='$val' and status=1 and expiry_date>='$date' and lead_type='Buy')as buyleads from chapters c, leads l where c.id='$val' group by c.id;";
+	$query = "select c.*, (select count(*) from leads where chapter_id='$val' and status=1  and posted_by IN (SELECT id FROM users WHERE status='1' ) and expiry_date>='$date' and lead_type='Sell')as sellleads,(select count(*) from leads where chapter_id='$val' and status=1  and posted_by IN (SELECT id FROM users WHERE status='1' ) and expiry_date>='$date' and lead_type='Buy')as buyleads from chapters c, leads l where c.id='$val' group by c.id;";
 	$response = mysqli_query($conn,$query);
 	if($response){
 		while($row=mysqli_fetch_assoc($response)){
@@ -47,7 +47,7 @@ foreach($chapter_id as $val){
 			$outp="0";
 		}
 		
-	$conn->close();
+	  $conn->close();
 		
 		echo($outp);
 	

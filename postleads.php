@@ -274,7 +274,6 @@ if ($result)
             $email = 'noreply@eximbni.com';
             $password = '@team&1234';
             $to_email1 = $to_email1;
-            //$to_cc = 'ganesh.vab@gmail.com';
             $subject = "Post Lead OTP Verification";
 
             $mail = new PHPMailer(); // create a new object
@@ -283,7 +282,7 @@ if ($result)
             $mail->SMTPAuth = true; // authentication enabled
             $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
             $mail->Host = "mail.eximbni.com";
-            $mail->Port = 587; // or 587
+            $mail->Port = 465; // or 587
             $mail->IsHTML(true);
             $mail->Username = $email;
             $mail->Password = $password;
@@ -300,7 +299,7 @@ if ($result)
             $email = 'noreply@eximbni.com';
             $password = '@team&1234';
             $to_email = $to_email;
-            $to_cc = 'ganesh.vab@gmail.com';
+            //$to_cc = 'muralimiios@gmail.com';
             $message = $msg;
             $subject = "Post Lead OTP Verification";
 
@@ -310,7 +309,7 @@ if ($result)
             $mail->SMTPAuth = true; // authentication enabled
             $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
             $mail->Host = "mail.eximbni.com";
-            $mail->Port = 587; // or 587
+            $mail->Port = 465; // or 587
             $mail->IsHTML(true);
             $mail->Username = $email;
             $mail->Password = $password;

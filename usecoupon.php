@@ -34,13 +34,19 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	        while($row=mysqli_fetch_assoc($resget)){
 	            $coupons = $row['coupons'];
 	        }
-	        $ncoupons = $coupons-1;
-	        $upd = "update franchise_users set coupons='$ncoupons'";
-	        $resupd = mysqli_query($conn,$upd);
-	        if($resupd){
-	            $outp=1;
+	        
+	        if($coupons > 0 && $coupons !=''){
+    	        $ncoupons = $coupons-1;
+    	        $upd = "update franchise_users set coupons='$ncoupons' where id ='$franchise_id'";
+    	        $resupd = mysqli_query($conn,$upd);
+    	        if($resupd){
+    	            $outp=1;
+    	        }	            
 	        }
+
 	    }
+	    
+	    $outp = 1;
 	}
 	else{
 	    $outp=$sql;

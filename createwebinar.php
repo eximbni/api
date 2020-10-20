@@ -26,10 +26,10 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	$webtime = $request->webtime;
 	$duration = $request->duration;
 	$todaysdate = date('Y-m-d H:i:00');
-	$meeting_id = rand(111111,999999);
+	$meeting_id = "MiiVision_".rand(111111,999999);
 	$meeting_pass = rand(111111,999999);
 	$webinar_datetime = $webdate." ".$webtime.":00";
-	$webinar_link = 'https://eximbin.com/miivision/';
+	$webinar_link = 'https://eximbni.com/miivision/';
 	
         $sql = "insert into webinar (title,description,webinar_date,webinar_time,posted_by,webinar_datetime,duration,status,meeting_id,meeting_pass,meeting_duration,webinar_link) values('$title','$description','$webdate','$webtime','$user_id','$webinar_datetime','$duration','0','$meeting_id','$meeting_pass','$duration','$webinar_link')";
 		$result =mysqli_query($conn,$sql);

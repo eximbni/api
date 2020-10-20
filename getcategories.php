@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($result)) {
  $category_id[] = $row["id"]; 
 }
 foreach($category_id as $val){
-	$query = "select c.*, (select count(*) from leads where categories_id='$val' and lead_type='Buy' and status=1 and expiry_date>='$date' )as buy_leads, (select count(*) from leads where categories_id='$val' and lead_type='sell' and status=1 and expiry_date>='$date') as sell_leads from categories c, leads l where c.id='$val' group by c.category_name";
+	$query = "select c.*, (select count(*) from leads where categories_id='$val' and lead_type='Buy' and status=1  and posted_by IN (SELECT id FROM users WHERE status='1' ) and expiry_date>='$date' )as buy_leads, (select count(*) from leads where categories_id='$val' and lead_type='sell' and status=1 and posted_by IN (SELECT id FROM users WHERE status='1' ) and expiry_date>='$date') as sell_leads from categories c, leads l where c.id='$val' group by c.category_name";
 	$response = mysqli_query($conn,$query);
 	if($response){
 		while($row=mysqli_fetch_assoc($response)){

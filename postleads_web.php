@@ -240,8 +240,8 @@ if ($result)
         $row_get_user1 = mysqli_fetch_assoc($res_get_user1);
         $to_email1 = $row_get_user1['email'];
 
-        $email = 'info@eximbin.com';
-        $password = 'EximBni.2020';
+        $email = 'noreply@eximbni.com';
+        $password = '@team&1234';
         $to_email1 = $to_email1;
         $subject = "Post Lead OTP Verification";
 
@@ -250,7 +250,7 @@ if ($result)
         $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth = true; // authentication enabled
         $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-        $mail->Host = "mail.eximbin.com";
+        $mail->Host = "mail.eximbni.com";
         $mail->Port = 587; // or 587
         $mail->IsHTML(true);
         $mail->Username = $email;
@@ -262,9 +262,9 @@ if ($result)
         $mail->Send();
 
 
-	    $email = 'info@eximbin.com';
-	    $password = 'EximBni.2020';
-	    $to_email = $to_email;
+	    $email = 'noreply@eximbni.com';
+            $password = '@team&1234';
+            $to_email = $to_email;
 	   
 	    $subject = "Post Lead OTP Verification";
 
@@ -273,7 +273,7 @@ if ($result)
 	    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
 	    $mail->SMTPAuth = true; // authentication enabled
 	    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-	    $mail->Host = "mail.eximbin.com";
+	    $mail->Host = "mail.eximbni.com";
 	    $mail->Port = 587; // or 587
 	    $mail->IsHTML(true);
 	    $mail->Username = $email;
@@ -290,8 +290,8 @@ if ($result)
 
 
 
-	    $email = 'info@eximbin.com';
-	    $password = 'EximBni.2020';
+	    $email = 'noreply@eximbni.com';
+        $password = '@team&1234';
 	    $to_email = $to_email;
 	   
 	    $subject = "Post Lead OTP Verification";
@@ -301,7 +301,7 @@ if ($result)
 	    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
 	    $mail->SMTPAuth = true; // authentication enabled
 	    $mail->SMTPSecure = 'none'; // secure transfer enabled REQUIRED for Gmail
-	    $mail->Host = "mail.eximbin.com";
+	    $mail->Host = "mail.eximbni.com";
 	    $mail->Port = 587; // or 587
 	    $mail->IsHTML(true);
 	    $mail->Username = $email;
