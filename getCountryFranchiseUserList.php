@@ -19,17 +19,23 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     $request = json_decode($postdata);
 
 	include("config.php"); 
-        $user_id = $_GET["user_id"];
-        $sql = "select m.*,h.english from myfav_hscodes m, testhsncodes h where m.user_id='$user_id' and h.hscode= LEFT(m.hscode,6) group by m.hscode";
-        $res = mysqli_query($conn,$sql);
-        if(mysqli_num_rows($res)>0){
-            while($row=mysqli_fetch_assoc($res)){
-                $outp[]=$row;
-            }
-        }
-        else{
-            $outp=0;
-        }
-        $outp = json_encode($outp);
-        echo $outp;
-?> 
+        $sql="SELECT c.name as country_name, u.id,u.name,u.business_name,c.latitude,c.longitude FROM franchise_users fu, countries c, users u WHERE fu.country_id=c.country_id AND  fu.user_id = u.id AND u.status='1' AND fu.franchise_type ='CF' AND fu.status='1'";
+   		$result =mysqli_query($conn,$sql);
+		$count = mysqli_num_rows($result);
+		if($count >0){
+		
+while ($row = mysqli_fetch_assoc($result)) {
+ $arr[] = $row; 
+}
+    $outp= json_encode($arr);
+		
+		}
+		else{
+			$outp="0";
+		}
+		
+	$conn->close();
+		
+		echo($outp);
+	
+?>
